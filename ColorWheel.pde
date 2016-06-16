@@ -15,12 +15,12 @@ float value;
 int i=0;
  
 void setup(){
-// size(400,300);
+size(400,300);
  port = new Serial(this, "/dev/cu.usbmodem1421", 9600); //remember to replace COM20 with the appropriate serial port on your computer
 
 oscP5 = new OscP5(this,12000);
 myRemoteLocation = new NetAddress("127.0.0.1",12001);
-fullScreen();
+//fullScreen();
 }
  
  
@@ -35,14 +35,7 @@ void draw(){
   exit();
   }
  background(wRed,wGreen,wBlue);
- //textSize(32);
-//text("word", 10, 30); 
-//fill(wRed,wGreen,wBlue);
 
-//textSize(70);
-//text("C", 10, 60); 
-//fill(0,250,0);
- // check for serial, and process
  while (port.available() > 0) {
    serialEvent(port.read());
  }
@@ -52,7 +45,6 @@ void serialEvent(int serial) {
  if(serial != '\n') {
    buff += char(serial);
  } else {
-   //println(buff);
    
    int cRed = buff.indexOf("R");
    int cGreen = buff.indexOf("G");
@@ -112,37 +104,5 @@ void serialEvent(int serial) {
      msg.add(wRed);
     oscP5.send(msg, myRemoteLocation);
 }
-//print("CRED:");print(cRed);
-//print("Cgreen:");print(cGreen);
-//print("Cblue:");print(cBlue);
-
-/*
-    if (wGreen > wBlue && wGreen > wRed){
-   OscMessage msg = new OscMessage("1");
-     //msg.add(1);
-     oscP5.send(msg, myRemoteLocation);
  }
-  if (wBlue > wGreen && wBlue > wRed){
-   OscMessage msg = new OscMessage("2");
-     //msg.add(1);
-    oscP5.send(msg, myRemoteLocation);
-}
-  if (wRed > wGreen && wRed > wBlue){
-   OscMessage msg = new OscMessage("3");
-     //msg.add(1);
-    oscP5.send(msg, myRemoteLocation);
-}
-*/
-}
-
-//void oscEvent(OscMessage theOscMessage) {
-
-
-   
- //}
- /* if(theOscMessage.checkAddrPattern("/a0")==true)
-  {
-    value = theOscMessage.get(0).floatValue();
-   // print(value);
-  }*/
 }
